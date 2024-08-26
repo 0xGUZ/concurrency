@@ -34,13 +34,10 @@ int main(int argc, char* argv[]) {
   int num_threads;
   int vec_size;
 
-  if (argc < 2) {
-    printf("--ERRO: informe a quantidade de threads <%s> <num_threads>\n",
+  if (argc < 3) {
+    printf("--ERRO: digite %s <numero de threads> <dimensao do vetor>\n",
            argv[0]);
     return 1;
-  } else if (argc < 3) {
-    printf("--ERRO: informe o tamanho do vetor <%s> <vec_size>\n", argv[0]);
-    return 2;
   }
 
   num_threads = atoi(argv[1]);
@@ -63,7 +60,7 @@ int main(int argc, char* argv[]) {
 
     if (args == NULL) {
       printf("--ERRO: malloc()\n");
-      return 3;
+      return 2;
     }
 
     args->vec = vec;
@@ -84,7 +81,7 @@ int main(int argc, char* argv[]) {
            args->startPos, args->endPos, args->endPos - args->startPos + 1);
     if (pthread_create(&tid_sistema[i], NULL, incrementByOne, (void*)args)) {
       printf("--ERRO: pthread_create()\n");
-      return 4;
+      return 3;
     }
   }
 
@@ -92,14 +89,14 @@ int main(int argc, char* argv[]) {
   for (int i = 0; i < num_threads; i++) {
     if (pthread_join(tid_sistema[i], NULL)) {
       printf("--ERRO: pthread_join() da thread %d\n", i);
-      return 5;
+      return 4;
     }
   }
 
   // check vec values
   if (checkVec(vec, vec_size, 3)) {
     printf("--ERRO: valores finais incorretos no vetor <vec>\n");
-    return 6;
+    return 5;
   }
 
   free(vec);
