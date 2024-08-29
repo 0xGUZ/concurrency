@@ -3,7 +3,7 @@
 #include <time.h>
 
 #define MAX_ELEM_VALUE 1000
-#define PRINT_STDOUT
+// #define PRINT_STDOUT
 
 int main(int argc, char* argv[]) {
   float* matriz;
