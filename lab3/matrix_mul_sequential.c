@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "timer.h"
 
-#define PRINT_STDOUT
+// #define PRINT_STDOUT
 
 int main(int argc, char* argv[]) {
   float *matriz1, *matriz2, *matriz3;
@@ -9,6 +10,7 @@ int main(int argc, char* argv[]) {
   long long int tam1, tam2;
   FILE *descritorArquivo1, *descritorArquivo2, *descritorArquivoSaida;
   size_t ret;
+  double inicio, fim, delta;
 
   if (argc < 4) {
     fprintf(
@@ -18,6 +20,7 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
+  GET_TIME(inicio);
   // Abre Matriz 1
   descritorArquivo1 = fopen(argv[1], "rb");
   if (!descritorArquivo1) {
@@ -102,6 +105,12 @@ int main(int argc, char* argv[]) {
     return 13;
   }
 
+  GET_TIME(fim);
+  delta = fim - inicio;
+  printf("Tempo inicializacao: %lf segundos\n", delta);
+
+  GET_TIME(inicio);
+
   for (int i = 0; i < linhas1; i++) {
     for (int j = 0; j < colunas2; j++) {
       matriz3[i * colunas2 + j] = 0;
@@ -111,6 +120,12 @@ int main(int argc, char* argv[]) {
       }
     }
   }
+
+  GET_TIME(fim);
+  delta = fim - inicio;
+  printf(
+      "Tempo calculo sequencial multiplicacao (%dx%d)*(%dx%d): %lf segundos\n",
+      linhas1, colunas1, linhas2, colunas2, delta);
 
   // Salva a Matriz 3 no arquivo de saída
   descritorArquivoSaida = fopen(argv[3], "wb");
