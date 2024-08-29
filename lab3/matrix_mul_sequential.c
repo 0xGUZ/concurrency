@@ -130,7 +130,7 @@ int main(int argc, char* argv[]) {
 
   fclose(descritorArquivoSaida);
 
-#ifndef PRINT_STDOUT
+#ifdef PRINT_STDOUT
   // imprime a matriz na saida padrao
   for (int i = 0; i < linhas1; i++) {
     for (int j = 0; j < colunas2; j++)
