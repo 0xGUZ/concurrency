@@ -1,7 +1,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "timer.h"
+#include "timer.h"  // implementei meu proprio header por conta de OS
 
 float *matriz1, *matriz2, *matriz3;
 int linhas1, colunas1, linhas2, colunas2;
