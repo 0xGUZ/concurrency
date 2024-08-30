@@ -44,3 +44,50 @@ gcc lab2/inner_product_multithread.c -Wall
 ```
 
 A política adotada para distribuição de tarefas em que `N mod M != 0` é de `N / M + N % M` para a última thread.
+
+## Lab 3
+
+### gen_rand_matrix.c
+
+O programa recebe como argumentos:
+1. Número de fileiras
+2. Número de colunas 
+3. Arquivo de saída
+
+```shell
+gcc lab3/gen_rand_matrix.c -Wall -o gen
+
+# gera matriz 100x100 e grava no binario matrix1
+./gen 100 100 matrix1
+```
+
+### matrix_mul_sequential.c
+
+O programa recebe como argumentos:
+1. Arquivo de entrada 1
+2. Arquivo de entrada 2
+3. Arquivo de saída
+
+```shell
+gcc lab3/matrix_mul_sequential.c -Wall -o seq
+
+# faz multiplicacao matricial de matrix1 e matrix2 e grava em matrix3
+./seq matrix1 matrix2 matrix3
+```
+
+### matrix_mul_multithread_by_lines.c
+
+O programa recebe como argumentos:
+1. Arquivo de entrada 1
+2. Arquivo de entrada 2
+3. Arquivo de saída
+4. Número de threads
+
+```shell
+gcc lab3/matrix_mul_multithread_by_lines.c -Wall -o mml
+
+# faz multiplicacao matricial multithread de matrix1 e matrix2 e grava em matrix3 usando 5 threads
+./mml matrix1 matrix2 matrix3 5
+```
+
+A política adotada para distribuição de tarefa é de dividir as linhas da primeira e colunas da segunda matriz entre as threads, alocando o resto para a última.
