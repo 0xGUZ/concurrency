@@ -86,7 +86,7 @@ O programa recebe como argumentos:
 ```shell
 gcc lab3/matrix_mul_multithread_by_lines.c -Wall -o mml
 
-# faz multiplicacao matricial multithread de matrix1 e matrix2 e grava em matrix3 usando 5 threads
+# faz multiplicacao matricial com 5 threads de matrix1 e matrix2 e grava em matrix3
 ./mml matrix1 matrix2 matrix3 5
 ```
 
