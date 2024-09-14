@@ -7,10 +7,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MOD 10
 #define QNT_PRINT 20
 
 long int soma = 0;
-pthread_mutex_t mutex;
+int print_count = 0;
+int turno = 0;
+
+pthread_mutex_t mutex, mutex2;
+pthread_cond_t cond;
 
 void* ExecutaTarefa(void* arg) {
   long int id = (long int)arg;
@@ -18,7 +23,22 @@ void* ExecutaTarefa(void* arg) {
 
   for (int i = 0; i < 100000; i++) {
     pthread_mutex_lock(&mutex);
-    soma++;
+
+    // Se for múltiplo de mod e ainda não imprimimos qnt_print vezes, aguarda
+    // impressão
+    if (soma % MOD == 0 && print_count < QNT_PRINT) {
+      pthread_mutex_lock(&mutex2);
+      turno = 1;  // Define que é a vez da thread de impressão
+      pthread_cond_signal(&cond);         // Sinaliza a thread de impressão
+      pthread_cond_wait(&cond, &mutex2);  // Aguarda a impressão
+      pthread_mutex_unlock(&mutex2);
+    }
+
+    // Se for turno de soma, continua somando
+    if (turno == 0) {
+      soma++;
+    }
+
     pthread_mutex_unlock(&mutex);
   }
   printf("Thread : %ld terminou!\n", id);
@@ -27,10 +47,26 @@ void* ExecutaTarefa(void* arg) {
 
 void* extra(void* args) {
   printf("Extra : esta executando...\n");
-  for (int i = 0; i < 10000; i++) {
-    if (!(soma % 10))
-      printf("soma = %ld \n", soma);
+
+  while (print_count < QNT_PRINT) {
+    pthread_mutex_lock(&mutex2);
+
+    // Se for turno de impressão, imprime o múltiplo
+    if (turno == 0) {
+      pthread_cond_wait(&cond, &mutex2);  // Aguarda a thread de soma sinalizar
+    }
+
+    // Imprime o valor de soma (múltiplo)
+    printf("soma = %ld \n", soma);
+    print_count++;
+
+    // Libera o turno para a thread de soma continuar
+    turno = 0;
+    pthread_cond_signal(&cond);  // Sinaliza para as threads de soma continuar
+
+    pthread_mutex_unlock(&mutex2);
   }
+
   printf("Extra : terminou!\n");
   pthread_exit(NULL);
 }
@@ -52,6 +88,8 @@ int main(int argc, char* argv[]) {
   }
 
   pthread_mutex_init(&mutex, NULL);
+  pthread_mutex_init(&mutex2, NULL);
+  pthread_cond_init(&cond, NULL);
 
   //--cria thread de log
   if (pthread_create(&tid[nthreads], NULL, extra, NULL)) {
@@ -75,8 +113,10 @@ int main(int argc, char* argv[]) {
     }
   }
 
-  //--finaliza o mutex
+  //--finaliza
   pthread_mutex_destroy(&mutex);
+  pthread_mutex_destroy(&mutex2);
+  pthread_cond_destroy(&cond);
 
   printf("Valor de 'soma' = %ld\n", soma);
 
