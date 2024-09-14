@@ -91,3 +91,30 @@ gcc lab3/matrix_mul_multithread_by_lines.c -Wall -o mml
 ```
 
 A política adotada para distribuição de tarefa é de dividir as linhas da primeira e colunas da segunda matriz entre as threads, alocando o resto para a última.
+
+## Lab 4
+
+-- No code
+
+## Lab 5 
+
+### soma-lock-atom.c
+
+Este programa soma +1 cem mil vezes, por thread, à uma variável compartilhada "soma". Uma outra thread especial pode ser usada pra printar múltiplos de um certo número.
+
+No programa está definido:
+
+```c
+#define MOD 10          // número base que define os múltiplos a serem printados
+#define QNT_PRINT 20    // número de múltiplos a serem printados 
+```
+
+O programa recebe como argumentos:
+1. Número de threads de soma
+
+```shell
+gcc lab5/soma-lock-atom.c -Wall -o soma
+
+# 5 threads de soma
+./soma 5
+```
