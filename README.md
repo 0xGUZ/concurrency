@@ -118,3 +118,7 @@ gcc lab5/soma-lock-atom.c -Wall -o soma
 # 5 threads de soma
 ./soma 5
 ```
+
+## Lista 1
+
+Minhas respostas para a lista 1 estão inclusas nesse diretório.
