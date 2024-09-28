@@ -106,4 +106,5 @@ int main(int argc, char* argv[]) {
   free(buffer->arr);
   free(buffer);
   free(tid_system);
+  return 0;
 }
