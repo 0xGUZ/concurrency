@@ -122,3 +122,21 @@ gcc lab5/soma-lock-atom.c -Wall -o soma
 ## Lista 1
 
 Minhas respostas para a lista 1 estão inclusas nesse diretório.
+
+## Lab 6
+
+### my_rwlock.c
+
+Este programa implementa - usando mutexes, condições e variáveis globais - o equivalente a um rwlock, onde a fila de espera garante prioridade à operações de escrita. 
+
+As operações seguem uma distribuição aleatória de 98/1/1 para consulta, inserção e remoção. Essas operações executam sobre a linked list provida em `list_int.c`.
+
+O programa recebe como argumentos:
+1. Número de threads 
+
+```shell
+gcc my_rwlock.c list_int.c -o my_rwlock
+
+# 5 threads seguindo a distribuicao aleatoria de operacoes
+./my_rwlock 5
+```
