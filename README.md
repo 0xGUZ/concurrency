@@ -140,3 +140,18 @@ gcc my_rwlock.c list_int.c -o my_rwlock
 # 5 threads seguindo a distribuicao aleatoria de operacoes
 ./my_rwlock 5
 ```
+
+## Lab 6
+
+### atividade3.c
+
+O programa recebe como argumentos:
+1. Arquivo de entrada 
+
+```shell
+gcc atividade3.c -o a
+
+./a entrada.txt
+```
+
+Um exemplo de entrada.txt pode ser encontrado dentro do diretório /lab7
