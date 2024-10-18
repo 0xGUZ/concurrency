@@ -143,13 +143,13 @@ gcc my_rwlock.c list_int.c -o my_rwlock
 
 ## Lab 6
 
-### atividade3.c
+### buffer_processing.c
 
 O programa recebe como argumentos:
 1. Arquivo de entrada 
 
 ```shell
-gcc atividade3.c -o a
+gcc buffer_processing.c -o a
 
 ./a entrada.txt
 ```
