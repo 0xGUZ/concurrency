@@ -67,7 +67,7 @@ void *thread2(void *arg) {
         i=0; // reinicia posicao desse buffer
 
         sem_post(&semImpressao);  
-
+    }
     pthread_exit(NULL);
 }
 
