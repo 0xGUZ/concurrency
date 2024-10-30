@@ -155,3 +155,21 @@ gcc buffer_processing.c -o a
 ```
 
 Um exemplo de entrada.txt pode ser encontrado dentro do diretório /lab7
+
+## Lab 9
+
+### dialogue.go
+
+Só executar:
+
+```shell
+go run dialogue.go
+```
+
+### primes.go
+
+Só executar:
+
+```shell
+go run primes.go
+```
